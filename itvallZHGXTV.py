@@ -35,13 +35,12 @@ def modify_urls(url):
 
 def is_url_accessible(url):
     try:
-        response = requests.get(url, timeout=1)
+        response = requests.get(url, timeout=5)  # 设置超时时间为5秒
         if response.status_code == 200:
-            return url
-    except requests.exceptions.RequestException:
-        pass
-    return None
-
+            return True  # 如果状态码为200，说明URL是可访问的
+    except requests.exceptions.RequestException as e:
+        print(f"请求错误: {e}")
+    return False  # 如果有异常发生，或者状态码不是200，URL不可访问
 
 results = []
 
